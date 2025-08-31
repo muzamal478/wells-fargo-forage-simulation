@@ -1,0 +1,70 @@
+erDiagram
+    FinancialAdvisor ||--o{ Portfolio : "manages"
+    Client ||--o{ Portfolio : "owns"
+    Portfolio ||--o{ Account : "contains"
+    Account ||--o{ Holding : "holds"
+    Account ||--o{ Transaction : "logs"
+    Security ||--o{ Holding : "is held in"
+    Security ||--o{ Transaction : "is traded in"
+
+    FinancialAdvisor {
+        int advisor_id PK
+        string first_name
+        string last_name
+        string email
+        string phone
+        date employment_date
+    }
+
+    Client {
+        int client_id PK
+        string first_name
+        string last_name
+        string email
+        string phone
+        date date_of_birth
+        string risk_tolerance
+    }
+
+    Portfolio {
+        int portfolio_id PK
+        int client_id FK
+        int advisor_id FK
+        string name
+        date creation_date
+    }
+
+    Account {
+        int account_id PK
+        int portfolio_id FK
+        string type
+        string account_number
+        decimal current_balance
+    }
+
+    Security {
+        int security_id PK
+        string ticker_symbol
+        string name
+        string category
+        decimal expense_ratio
+    }
+
+    Holding {
+        int holding_id PK
+        int account_id FK
+        int security_id FK
+        decimal quantity
+        decimal purchase_price
+        date purchase_date
+    }
+
+    Transaction {
+        int transaction_id PK
+        int account_id FK
+        int security_id FK
+        string type
+        decimal quantity
+        decimal price
+        datetime timestamp
+    }
